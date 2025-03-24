@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      *{
+        margin:0;
+        padding:0;
+      }
+      body{
+        height:100vh;
+        width:100%;
+        position:relative;
+        background-image: url("medicare_hospital_img.jpg");
+        background-repeat: no-repeat;
+        background-size:100% 100%;
+      }
+      main{
+        backdrop-filter:blur(7px);
+        background-color: rgba(6, 6, 6, 0.358);
+        height:100%;
+        width:100%;
+        /* border:1px solid black; */
+        display:grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 20% 1fr;
+      }
+      /* main > div{
+        border:1px solid black;
+      } */
+      #main_1stchild{
+        
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:350%;
+        letter-spacing:5px;
+        font-weight:bold;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color:rgba(255, 255, 255, 0.377);
+        
+      }
+      #plus{
+        background-color:green;
+        color:red;
+        padding:1%;
+        height:40%;
+        width:40px;
+        margin-left:10px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:100px;
+
+      }
+     
+      #main_2ndchild{
+        display:grid;
+        grid-template-columns: repeat(4,12%);
+        grid-template-rows: 38%;
+        place-content: center;
+        gap:6%;
+      }
+      #main_2ndchild > div{
+        border:1px solid black;
+        display:grid;
+        grid-template-columns:1fr;
+        grid-template-rows: 80% 20%;
+        gap:3%;
+        transition: all 0.2s ;
+      }
+      #main_2ndchild > div > img{
+        height:100%;
+        width:100%;
+      }
+      #main_2ndchild > div > button{
+        border:none;
+        background-color:green;
+        color:white;
+        letter-spacing:4px;
+      }
+      #main_2ndchild > div > button:active{
+             box-shadow:0px 0px 7px black;
+      }
+      #main_2ndchild > div:hover{
+        transform:scale(1.03);
+      }
+      /* ---------------------------------------------------------- (main design end) */
+
+      #patient_entry{
+        
+        height:60vh;
+        width:50%;
+        border:1px solid black;
+        backdrop-filter: blur(19px);
+        background-color:rgba(113, 113, 165, 0.824);
+        position:absolute;
+        top:20%;
+        left:26%;
+        
+        grid-template-columns: 80%;
+        grid-template-rows: repeat(5,15%);
+        place-content:center;
+        gap:3%;
+      }
+      /* #patient_entry > h2 , #patient_entry > form{
+        border:1px solid black;
+      } */
+      #patient_entry > h2{
+        display:flex;
+        justify-content:center;
+        align-items:start;
+        letter-spacing: 8px;
+        
+      }
+      #patient_entry > button{
+        border:1px solid rgba(255, 255, 255, 0.452);
+        /* border:none; */
+        /* background-color:rgba(0, 128, 0, 0.553); */
+        background-color:green;
+        letter-spacing: 8px;
+        font-size:120%;
+      }
+      #patient_entry > button:active{
+        transform:scale(1.02);
+      }
+      #patient_entry > form{
+        display:grid;
+        grid-template-columns: 20% 50%;
+        grid-template-rows: 70%;
+        place-content: center;
+        gap:3%;
+      }
+      #patient_entry > form >label{
+        display:grid;
+        justify-content:end;
+        align-content:center;
+        letter-spacing: 6px;
+      }
+      #entry_exit_btn{
+        border:1px solid black;
+        position:absolute;
+        top:10%;
+        left:90%;
+        height:30px;
+        width:30px;
+        display:grid;
+        place-content: center;
+        background-color:black;
+        color:white;
+        
+      }
+      #entry_exit_btn:hover{
+        cursor:pointer;
+      }
+      /* ------------------------------------------------(patient_entry_end) */
+      
+      #all_patients{
+        height:85vh;
+        width:83vw;
+        position:absolute;
+        top:8%;
+        left:9%;
+        border:1px solid black;
+        backdrop-filter:blur(19px);
+        background-color:rgba(113, 113, 165, 0.824);
+        grid-template-columns: 90%;
+        grid-template-rows: 10% 1fr;
+        place-content: center;
+        gap:2%;
+      }
+      #all_patients > h2 {
+        border:1px solid black;
+      }
+      #all_patients > h2{
+        display:grid;
+        place-content: center;
+        letter-spacing: 9px;
+      }
+      #all_patients_2ndchild{
+        padding:1%;
+        display:grid;
+        grid-template-columns: 100%;
+        grid-auto-rows: max-content;
+        gap:2%;
+        overflow:auto;
+      }
+      
+      .list{
+        padding:1%;
+        font-size:130%;
+        background-color:rgba(255, 255, 255, 0.527);
+        border:1px solid black;
+        display:grid;
+        grid-template-columns: 20% 1fr;
+        grid-auto-rows:max-content;
+      }
+      .sl_no{
+        display:grid;
+        place-content: center;
+      }
+      .details{
+        display:grid;
+      }
+      #all_patients_exit{
+        height:5%;
+        width:3%;
+        border:1px solid black;
+        display:grid;
+        place-content: center;
+        position:absolute;
+        top:2%;
+        left:96%;
+        background-color:black;
+        color:white;
+      }
+      #all_patients_exit:hover{
+        cursor:pointer;
+      }
+
+      /* ---------------------------------------------- all patients end */
+
+      #patient_details{
+        height:65vh;
+        width:40vw;
+        position:absolute;
+        top:20%;
+        left:30%;
+        border:1px solid black;
+        backdrop-filter:blur(19px);
+        background-color:rgba(113, 113, 165, 0.824);
+        grid-template-columns: 90%;
+        grid-template-rows: repeat(4,17%);
+        place-content: center;
+        gap:5%;
+      }
+      /* #patient_details > h2 , #patient_details > form{
+        border:1px solid black;
+      } */
+      #patient_details > h2 {
+        display:grid;
+        place-content: center;
+        letter-spacing:10px;
+      }
+      #patient_details > button{
+        font-size:150%;
+        letter-spacing: 10px;
+        background-color:green;
+        border:1px solid rgba(255, 255, 255, 0.452);
+        color:black;
+         height:70%;
+      }
+      #patient_details > button:active{
+             transform:scale(1.02);
+      }
+      #patient_details > form{
+        display:grid;
+        grid-template-columns: 30% 50%;
+        grid-template-rows: 70%;
+        place-content: center;
+        gap:5%;
+      }
+      #patient_details > form > label{
+        
+        display:grid;
+        align-content:center;
+        justify-content: end;
+        letter-spacing: 4px;
+      }
+      #patient_details_exit{
+        position:absolute;
+        right:5%;
+        top:10%;
+        height:7%;
+        width:5%;
+        border:1px solid black;
+        display:grid;
+        place-content: center;
+        background-color:black;
+        color:white;
+      }
+      #patient_details_exit:hover{
+        cursor:pointer;
+      }
+
+      /* ------continue #patient_details_content */
+
+      #patient_details_content{
+        height:70vh;
+        width:45vw;
+        position:absolute;
+        top:20%;
+        left:25%;
+        border:1px solid black;
+        backdrop-filter:blur(19px);
+        background-color:rgba(113, 113, 165, 0.824);
+        grid-template-columns: 90%;
+        grid-template-rows: repeat(6,13%);
+        gap:2%;
+        place-content: center;
+        font-size:110%;
+      }
+      /* #patient_details_content > div{
+        border:1px solid black;
+        } */
+        
+        .adjust{
+          display:grid;
+          align-content: center;
+        }
+        #dis_box{
+          display: grid;
+          grid-template-columns: 45%;
+          grid-template-rows: 70%;
+          place-content: center;
+        }
+        #discharge{
+          background-color: red;
+          color:white;
+          border:none;
+          letter-spacing: 6px;
+          font-size: 120%;
+        }
+        #discharge:active{
+          transform:scale(1.03);
+        }
+        #patient_details_content_exit{
+          height:6%;
+          width:4%;
+          border:1px solid black;
+          position:absolute;
+          right:6%;
+          top:3%;
+          display:grid;
+          place-content: center;
+          background-color:black;
+          color:white;
+
+        }
+        #patient_details_content_exit:hover{
+          cursor:pointer;
+        }
+        /* --------------------------- end patient_dtails_conternt */
+
+        #fees_deposite{
+          height:50vh;
+        width:35vw;
+        position:absolute;
+        top:30%;
+        left:33%;
+        border:1px solid black;
+        backdrop-filter:blur(19px);
+        background-color:rgba(113, 113, 165, 0.824);
+        grid-template-columns: 90%;
+        grid-template-rows: repeat(5,15%);
+        gap:3%;
+        place-content: center;
+        }
+        #fees_deposite > form{
+         
+          display:grid;
+          grid-template-columns: 30% 60%;
+          grid-template-rows: 80%;
+          align-content:center;
+          justify-content: start;
+        }
+        #fees_deposite > form >label{
+          display:grid;
+          align-content: center;
+          justify-content:start;
+          letter-spacing: 4px;;
+        }
+        #fees_deposite > button{
+          font-size:120%;
+          letter-spacing: 8px;
+          background-color:green;
+        }
+        #fees_deposite_exit{
+          height:7%;
+          width:6%;
+          border:1px solid black;
+          position:absolute;
+          top:4%;
+          right:4%;
+          background-color: black;
+          color: white;
+          display:grid;
+          place-content: center;
+        }
+        #fees_deposite_exit:hover{
+            cursor:pointer;
+        }
+        /* -------------------------------end fees deposite  */
+     
+        #exit{
+          height:5%;
+          width:10%;
+          position:absolute;
+          bottom: 4%;
+          left:45%;
+          letter-spacing: 8px;
+          font-weight: bold;
+          font-size:120%;
+          background-color: rgba(255, 0, 0, 0.534);
+          color:black;
+        }
+     
+    </style>
+</head>
+<body>
+   <main>
+    <div id="main_1stchild">Medicare <div id="plus">+</div></div>
+    <div id="main_2ndchild">
+           <div>
+                <img src="patient_entry_img.webp" alt="">
+                <button id="entry_btn">PATIENT ENTRY</button>
+           </div>
+          
+           <div>
+                <img src="patient_details2_img.jpg" alt="">
+                <button id="ptnt_dtls_btn">PATIENT DETAILS</button>
+           </div>
+           <div>
+                <img src="fees_deposite2_img.jpg" alt="">
+                <button id="deposite_btn">FEES DEPOSITE</button>
+           </div>
+           <div>
+                <img src="all_patient_img.webp" alt="">
+                <button id="all_patients_btn">ALL PATIENTS</button>
+           </div>
+           
+    </div>
+   </main>
+   
+   <div id="patient_entry">
+       <h2>PATIENT ENTRY</h2>
+       <form action="">
+           <label for="patient_name">NAME:</label>
+           <input type="text" id="patient_name" autocomplete="off">
+       </form>
+       <form action="">
+           <label for="patient_adhar">ADHAR:</label>
+           <input type="text" id="patient_adhar" autocomplete="off">
+       </form>
+       <form action="">
+           <label for="patient_age">AGE:</label>
+           <input type="text" id="patient_age" autocomplete="off">
+       </form>
+       <button id="entry_submit">ENTRY</button>
+
+       <div id="entry_exit_btn">X</div>
+   </div>
+
+   <div id="all_patients">
+       <h2>PATIENTS LIST</h2>
+       <div id="all_patients_exit">X</div>
+       <div id="all_patients_2ndchild">
+          <!-- <div class="list">
+                 <div class="sl_no">1</div>
+                 <div class="details">
+                      <P>name = bubu</P>
+                      <P>adhar - dkfj</P>
+                      <P>age - djf</P>
+                      <P>fees = dkfjd</P>
+                      <p>boutn - dfk</p>
+                 </div>
+          </div>  -->
+    
+         
+       </div>
+   </div>
+
+
+   <div id="patient_details">
+          <h2>PATIENT DETAILS</h2>
+          <form action="">
+              <label for="ptnt_dtls_nm">NAME : </label>
+              <input type="text" id="ptnt_dtls_nm" autocomplete="off">
+          </form>
+          <form action="">
+            <label for="ptnt_dtls_adhar">ADHAR : </label>
+            <input type="text" id="ptnt_dtls_adhar" autocomplete="off">
+          </form>
+          <button id="ptnt_dtls_sbmt">SUBMIT</button>
+          <div id="patient_details_exit">X</div>
+   </div>
+   <div id="patient_details_content">
+              <div class="adjust" id="dtls_cnt_nm"></div>
+              <div class="adjust" id="dtls_cnt_adhar"></div>
+              <div class="adjust" id="dtls_cnt_age"></div>
+              <div class="adjust" id="dtls_cnt_fees"></div>
+              <div class="adjust" id="dtls_cnt_paid"></div>
+              <div id="dis_box"> <button id="discharge">DISCHARGE</button> </div>
+              <div id="patient_details_content_exit">X</div>
+   </div>
+
+   <div id="fees_deposite">
+               <form action="">
+                   <label for="deposite_nm">NAME : </label>
+                   <input type="text" id="deposite_nm" autocomplete="off">
+               </form>
+               <form action="">
+                   <label for="deposite_adhar">ADHAR : </label>
+                   <input type="text" id="deposite_adhar" autocomplete="off">
+               </form>
+               <form action="">
+                   <label for="deposite_fee">DEPOSITE : </label>
+                   <input type="number" id="deposite_fee" autocomplete="off">
+               </form>
+               <form action="">
+                <label for="increase_fee">ADD ON : </label>
+                <input type="number" id="increase_fee" autocomplete="off">
+               </form>
+               <button id="fees_deposite_sbmt">ADD</button>
+               <div id="fees_deposite_exit">X</div>
+   </div>
+
+   <button id="exit">EXIT</button>
+
+
+<script>                        
+                                        // J A V A  S C R I P T
+
+    let index = 0;
+
+// ------------------------------------------ after click on the  patient entry button
+let patient_entry = document.querySelector("#patient_entry")
+patient_entry.style.display = "none";
+let entry_btn = document.querySelector("#entry_btn")
+entry_btn.onclick = ()=>{
+  patient_entry.style.display = "grid";
+  index++;
+  patient_entry.style.zIndex =index;
+}
+let entry_exit_btn = document.querySelector("#entry_exit_btn")
+entry_exit_btn.onclick = ()=>{
+  patient_entry.style.display = "none";
+  document.querySelector("#patient_name").value = "";
+  document.querySelector("#patient_adhar").value = "";
+  document.querySelector("#patient_age").value = "";
+}
+
+let entry_submit = document.querySelector("#entry_submit")
+entry_submit.onclick = ()=>{
+      let patient_name = document.querySelector("#patient_name")
+      let patient_adhar = document.querySelector("#patient_adhar")
+      let patient_age = document.querySelector("#patient_age")
+      
+      let exist = 0;
+      if(patient_name.value != "" && patient_adhar.value != "" && patient_age.value != "")
+         {
+            let get_obj = JSON.parse(localStorage.getItem("patients")) || [];
+
+            for(let i=0; i<get_obj.length; i++)
+               {
+                  if(patient_adhar.value == get_obj[i].adhar)
+                     {
+                        exist = 1;
+                        break;
+                     }
+                     else{
+                        exist = 0;
+                     }
+               }
+
+            if(exist == 1)
+            {
+              alert("the patient has already exist")
+            }
+           else if(exist == 0)
+             {
+                let obj = {}
+                obj.name = patient_name.value.toLowerCase().trim();
+                obj.adhar = patient_adhar.value.trim();
+                obj.age = patient_age.value.trim();
+                obj.fees = 500;
+                obj.paid = 0;
+                get_obj.push(obj)
+                localStorage.setItem("patients",JSON.stringify(get_obj));
+                patient_name.value = "";
+                patient_adhar.value = "";
+                patient_age.value = "";
+             }
+         }
+         
+
+}
+
+// --------------------------------------------------------------------  after click on the all patients button
+
+let all_patients = document.querySelector("#all_patients")
+all_patients.style.display = "none";
+
+
+let all_patients_btn = document.querySelector("#all_patients_btn")
+all_patients_btn.onclick = ()=>{
+  
+  all_patients.style.display = "grid";
+  index++;
+  all_patients.style.zIndex = index;
+  let no = 1;
+   let ptnt_list = JSON.parse(localStorage.getItem("patients"))
+   
+   for(let i=0; i < ptnt_list.length ; i++)
+        {
+            let p1 = document.createElement("p")
+            p1.innerText = "NAME - " + ptnt_list[i].name;
+            
+            let p2 = document.createElement("p")
+            p2.innerText = "ADHAR NO - " + ptnt_list[i].adhar;
+            
+            let p3 = document.createElement("p")
+            p3.innerText = "AGE - " + ptnt_list[i].age;
+            
+            let p4 = document.createElement("p")
+            p4.innerText = "FEES - " + ptnt_list[i].fees;
+            
+            let p5 = document.createElement("p")
+            p5.innerText = "paid - " + ptnt_list[i].paid;
+            
+            let details = document.createElement("div")
+            details.setAttribute("class","details")
+            details.append(p1)
+            details.append(p2)
+            details.append(p3)
+            details.append(p4)
+            details.append(p5)
+
+            let sl_no = document.createElement("div")
+            sl_no.setAttribute("class","sl_no")
+            sl_no.innerText = no;
+            no++;
+            
+            let list = document.createElement("div")
+            list.append(sl_no)
+            list.append(details);
+            list.setAttribute("class","list")
+            
+            let all_patients_2ndchild = document.querySelector("#all_patients_2ndchild")
+            all_patients_2ndchild.append(list)
+        }
+}
+
+let all_patients_exit = document.querySelector("#all_patients_exit")
+all_patients_exit.onclick = ()=>{
+  
+  let childs = document.querySelector("#all_patients_2ndchild").children;
+  let i=0;
+  let len = childs.length;
+  while(i < len)
+    {
+      document.querySelector("#all_patients_2ndchild").removeChild(childs[0]);
+      i++;
+    }
+  
+  all_patients.style.display = "none";
+
+}
+
+// --------------------__________________________ work after click on the patient details button
+
+let patient_details = document.querySelector("#patient_details")
+patient_details.style.display = "none";
+
+let ptnt_dtls_btn = document.querySelector("#ptnt_dtls_btn");
+ptnt_dtls_btn.onclick = ()=>{
+  patient_details.style.display = "grid";
+  index++;
+  patient_details.style.zIndex = index;
+
+}
+
+let patient_details_exit = document.querySelector("#patient_details_exit");
+patient_details_exit.onclick = ()=>{
+  document.querySelector("#ptnt_dtls_nm").value = "";
+  document.querySelector("#ptnt_dtls_adhar").value = "";
+  patient_details.style.display = "none";
+}
+
+let patient_details_content = document.querySelector("#patient_details_content");
+patient_details_content.style.display = "none";
+
+let patient_details_content_exit = document.querySelector("#patient_details_content_exit");
+patient_details_content_exit.onclick = ()=>{
+  patient_details_content.style.display = "none";
+}
+
+let ptnt_dtls_sbmt = document.querySelector("#ptnt_dtls_sbmt")
+ptnt_dtls_sbmt.onclick = ()=>{
+   let ptnt_dtls_nm = document.querySelector("#ptnt_dtls_nm")
+   let ptnt_dtls_adhar = document.querySelector("#ptnt_dtls_adhar")
+    let mode = 1;
+   if(ptnt_dtls_nm.value != "" && ptnt_dtls_adhar.value != "")
+      {
+         let local_obj = JSON.parse(localStorage.getItem("patients"))
+         let selected_obj = 0;
+         let selected_index = "";
+
+         for(let i=0; i<local_obj.length; i++)
+            {
+                 if(local_obj[i].name == ptnt_dtls_nm.value.toLowerCase().trim() && local_obj[i].adhar == ptnt_dtls_adhar.value.trim() )
+                     {
+                        mode = 1;
+                        selected_obj = local_obj[i];
+                        selected_index = i;
+                        break;
+                     }
+                     else{
+                      mode = 0;
+                     }
+            }
+            if(mode == 1)
+               {
+                ptnt_dtls_nm.value = "";
+                ptnt_dtls_adhar.value = "";
+                patient_details_content.style.display = "grid";
+                index++;
+                patient_details_content.style.zIndex = index;
+                
+                let dtls_cnt_nm = document.querySelector("#dtls_cnt_nm")
+                let dtls_cnt_adhar = document.querySelector("#dtls_cnt_adhar")
+                let dtls_cnt_age = document.querySelector("#dtls_cnt_age")
+                let dtls_cnt_fees = document.querySelector("#dtls_cnt_fees")
+                let dtls_cnt_paid = document.querySelector("#dtls_cnt_paid")
+                  
+                dtls_cnt_nm.innerText = "NAME - " + selected_obj.name;
+                dtls_cnt_adhar.innerText = "ADHAR - " + selected_obj.adhar;
+                dtls_cnt_age.innerText = "AGE - " + selected_obj.age;
+                dtls_cnt_fees.innerText = "FEES - " + selected_obj.fees;
+                dtls_cnt_paid.innerText = "PAID - " + selected_obj.paid;
+
+                let discharge = document.querySelector("#discharge")
+                discharge.onclick = ()=>{
+                            let duplicate_arr = [];
+                            if(selected_obj.paid < selected_obj.fees)
+                                 {
+                                    
+                                       let res = confirm("not paid compleately ")
+                                       if(res)
+                                          {
+                                              for(let i=0; i<local_obj.length; i++)
+                                                   {
+                                                         if(i != selected_index)
+                                                                {
+                                                                    duplicate_arr.push(local_obj[i])
+                                                                    
+                                                                }
+                                                   }
+                                                   localStorage.setItem("patients",JSON.stringify(duplicate_arr));
+                                                   patient_details_content.style.display = "none";
+                                                   alert("successfully discharged ")
+                                          }
+                                  }
+                                  else{
+                                      for(let i=0; i<local_obj.length; i++)
+                                            {
+                                              if(i != selected_index)
+                                                 {
+                                                     duplicate_arr.push(local_obj[i])
+                                                     
+                                                 }
+                                            }
+                                            localStorage.setItem("patients",JSON.stringify(duplicate_arr));
+                                            patient_details_content.style.display = "none";
+                                            alert("successfully discharged ")
+                                  }
+                            
+                        }
+               }
+               else{
+                alert("INVALID")
+               }
+      }
+}
+
+// -----------------------------------------------------  work after click on the fees deposite
+
+let fees_deposite = document.querySelector("#fees_deposite");
+fees_deposite.style.display = "none";
+
+let deposite_btn = document.querySelector("#deposite_btn")
+deposite_btn.onclick = ()=>{
+        fees_deposite.style.display = "grid";
+        index++;
+        fees_deposite.style.zIndex = index;
+
+}
+
+let fees_deposite_exit = document.querySelector("#fees_deposite_exit")
+fees_deposite_exit.onclick = ()=>{
+       document.querySelector("#deposite_nm").value = "";
+       document.querySelector("#deposite_adhar").value = "";
+       document.querySelector("#deposite_fee").value = "";
+       document.querySelector("#increase_fee").value = "";
+       fees_deposite.style.display = "none";
+}
+
+let fees_deposite_sbmt = document.querySelector("#fees_deposite_sbmt")
+fees_deposite_sbmt.onclick = ()=>{
+         
+            let deposite_nm = document.querySelector("#deposite_nm")
+            let deposite_adhar = document.querySelector("#deposite_adhar")
+            let deposite_fee = document.querySelector("#deposite_fee")
+            let  increase_fee = document.querySelector("#increase_fee")
+
+            if(deposite_nm.value != "" && deposite_adhar.value != "")
+                 {
+                    let res = 0;
+                    let deposite_ob = JSON.parse(localStorage.getItem("patients"))
+                    let s_index = 0;
+                    for(let i=0; i<deposite_ob.length; i++)
+                       {
+                          if(deposite_ob[i].name == deposite_nm.value.toLowerCase().trim() && deposite_ob[i].adhar == deposite_adhar.value.trim())  
+                             {
+                                res = 1;
+                                s_index = i;
+                                break;
+                             } 
+                       }
+                       if(res == 1)
+                           {
+                                let p = (deposite_fee.value == "")? deposite_ob[s_index].paid + 0 : deposite_ob[s_index].paid + parseInt(deposite_fee.value);
+                                let f = (increase_fee.value == "")? deposite_ob[s_index].fees + 0 : deposite_ob[s_index].fees + parseInt(increase_fee.value);
+                                deposite_ob[s_index].paid = p;
+                                deposite_ob[s_index].fees = f;
+                                localStorage.setItem("patients",JSON.stringify(deposite_ob));
+                                deposite_nm .value = "";
+                                deposite_adhar .value = "";
+                                deposite_fee.value = "";
+                                increase_fee.value = "";
+                                alert("complete ")
+                           }
+                        else if(res == 0)
+                           {
+                             alert("INVALID")
+                           }
+                 }
+}
+
+// -------------------------------------------------work after click exit button
+
+let exit = document.querySelector("#exit")
+exit.onclick = ()=>{
+    window.open("employee_verification_hospital.html")
+    window.close()
+}
+</script>
+</body>
+</html>

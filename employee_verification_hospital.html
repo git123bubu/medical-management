@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        body{
+            height:100vh;
+            width:100%;
+            background-image: url("medicare_hospital_img.jpg");
+            background-repeat: no-repeat;
+            background-size:100% 100%;
+        }
+        main{
+            height:100%;
+            width:100%;
+            /* border:1px solid red; */
+            display:grid;
+            grid-template-rows:40%;
+            grid-template-columns:30%;
+            place-content:center;
+            backdrop-filter:blur(5px);
+            background-color: rgba(0, 0, 0, 0.295);
+        }
+        #main_1stchild{
+            border:1px solid black;
+            background-color: rgba(192, 199, 216, 0.425);
+            display:grid;
+            grid-template-rows:repeat(3,15%);
+            grid-template-columns: 90%;
+            /* place-content: center; */
+            justify-content:center;
+            align-content:space-around;
+        }
+        /* #main_1stchild>div{
+            border:1px solid red;
+        } */
+        .main_1stchild_divs{
+            display:grid;
+            grid-template-rows:100%;
+            grid-template-columns:30% 70%;
+        }
+        #user_id{
+            border:1px solid rgb(152, 146, 146);
+        }
+        #password_box{
+            border:1px solid rgb(163, 145, 145);
+            display:grid;
+            grid-template-rows: 100%;
+            grid-template-columns:80% 20%;
+        }
+        #password_box > span{
+            display:grid;
+            place-content: center;
+            cursor:pointer;
+            
+        }
+        #password_box > input{
+            border:none;
+        }
+        #main_1stchild label{
+            display:flex;
+            justify-content:start;
+            align-items:center;
+            letter-spacing:4px;
+        }
+        #login_div{
+            display:grid;
+            grid-template-rows:90%;
+            grid-template-columns: 60%;
+            place-content: center;
+        }
+        #login_btn{
+            border:1px solid rgb(163, 145, 145);
+            /* background-color: white;
+            color :rgb(173, 164, 164); */
+            
+        }
+        input,button,span{
+            background-color: rgba(192, 199, 216, 0.425);
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <form id="main_1stchild">
+                <div class="main_1stchild_divs">
+                       <label for="user_id">NAME </label>
+                       <input type="text" id="user_id" autocomplete="off">
+                </div>
+                <div class="main_1stchild_divs">
+                       <label for="user_psd">PASSWORD</label>
+                       <div id="password_box">
+                           <input type="password" id="user_psd" autocomplete="off">
+                           <span id="show">SHOW</span>
+                       </div>
+                </div>
+                <div id="login_div">
+                    <button id="login_btn">LOG IN </button>
+                    <!-- <input type="submit" id="login" value="LOG IN"> -->
+                </div>
+        </form>
+        
+    </main>
+
+<script>
+
+let employes = [{asu:"asu123",situl:"situl123"}]
+localStorage.setItem("employes",JSON.stringify(employes))
+
+let name = 0;
+let password = 0;
+
+let login_btn = document.querySelector("#login_btn")
+login_btn.style.backgroundColor = "rgba(192, 199, 216, 0.425)";
+login_btn.style.color = "rgb(173, 164, 164)";
+
+let login_value = 0;
+
+function store()
+    {
+        if(name && password)
+            {
+                 let api_employes = JSON.parse(localStorage.getItem("employes"))
+                 let ob = api_employes[0]
+                 let all_keys = Object.keys(ob)
+                //  console.log(all_keys)
+                 for (i of all_keys)
+                     {
+                          if(i == name.toLowerCase().trim())
+                             {
+                                //  console.log(i)
+                                 if(ob[i] == password)
+                                    {
+                                        
+                                       login_btn.style.backgroundColor = "green";
+                                        login_btn.style.color = "black";
+                                        login_value = 1;
+                                        break;
+                                        
+
+                                    }
+                                    else{
+                                        login_btn.style.backgroundColor = "rgba(192, 199, 216, 0.425)";
+                                        login_btn.style.color = "rgb(173,164,164)";
+                                        login_value = 0;
+                                    }
+                                
+                             }
+                             else{
+                                
+                                login_btn.style.backgroundColor = "rgba(192, 199, 216, 0.425)";
+                                login_btn.style.color = "rgb(173,164,164)";
+                                login_value = 0;
+                             }
+
+                             
+                     }
+            }
+           
+    }
+
+let user_id  = document.querySelector("#user_id")
+user_id.addEventListener("input",()=>{
+       name = user_id.value;
+       store()
+})
+
+
+let show = document.querySelector("#show")
+let user_psd = document.querySelector("#user_psd")
+let mode = 0;
+show.addEventListener("click",()=>{
+    if(mode == 0)
+       {
+        mode = 1;
+        user_psd.setAttribute("type","text")
+       }
+    else if(mode == 1)
+       {
+         mode = 0
+         user_psd.setAttribute("type","password")
+       }
+})
+
+user_psd.addEventListener("input",()=>{
+    password = user_psd.value;
+    store()
+})
+
+let main_1stchild = document.querySelector("#main_1stchild")
+main_1stchild.addEventListener("submit",(e)=>{
+    e.preventDefault();
+})
+
+login_btn.onclick = ()=>{
+      if(login_value == 1)
+          {
+           
+              window.open("patient_entry_discharge_hospital(2nd file ).html")
+              window.close()
+             
+          }
+        else if(login_value == 0)
+           {
+              alert("INVALID")
+           }
+}
+
+
+
+</script>
+</body>
+</html>
